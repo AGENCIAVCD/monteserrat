@@ -728,12 +728,14 @@
 
     .service-layout {
       display: grid;
-      grid-template-columns: minmax(280px, .56fr) minmax(0, 1fr);
+      grid-template-columns: minmax(260px, .48fr) minmax(0, 1fr);
       gap: var(--space-12);
       align-items: start;
     }
 
     .service-intro {
+      position: sticky;
+      top: calc(var(--header-h) + 22px);
       overflow: hidden;
       border: 1px solid rgba(255, 212, 0, .42);
       border-radius: 18px;
@@ -741,7 +743,7 @@
         linear-gradient(135deg, rgba(8, 8, 8, .96), rgba(8, 8, 8, .82)),
         radial-gradient(circle at 88% 18%, rgba(255, 212, 0, .24), transparent 34%);
       color: #fff;
-      padding: clamp(24px, 3vw, 34px);
+      padding: clamp(22px, 2.6vw, 30px);
       box-shadow: 0 24px 70px rgba(8, 8, 8, .2);
     }
 
@@ -751,8 +753,8 @@
 
     .service-intro .section-title {
       color: #fff;
-      font-size: clamp(2rem, 3.4vw, 3.4rem);
-      max-width: 10ch;
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      max-width: 9ch;
     }
 
     .service-intro .section-copy {
@@ -1368,6 +1370,8 @@
       }
 
       .service-intro {
+        position: relative;
+        top: auto;
         padding: 24px;
       }
 
