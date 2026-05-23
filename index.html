@@ -873,14 +873,49 @@
       position: relative;
       overflow: hidden;
       border-radius: var(--radius);
-      background: #fff;
+      background: rgba(255, 255, 255, .34);
       box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 10px;
+      padding: 10px;
     }
 
     .workshop-media img {
       width: 100%;
-      height: clamp(360px, 48vw, 560px);
+      height: 100%;
       object-fit: cover;
+      border-radius: var(--radius);
+    }
+
+    .workshop-media figure {
+      position: relative;
+      min-height: clamp(360px, 44vw, 560px);
+      margin: 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .workshop-media figure:first-child {
+      grid-row: span 2;
+    }
+
+    .workshop-media figure:not(:first-child) {
+      min-height: 0;
+    }
+
+    .workshop-media figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      border-radius: 999px;
+      background: rgba(8, 8, 8, .82);
+      color: #fff;
+      padding: 8px 12px;
+      font-size: .68rem;
+      font-weight: 900;
+      text-transform: uppercase;
     }
 
     .stat-row {
@@ -1386,6 +1421,16 @@
       .product-grid,
       .stat-row {
         grid-template-columns: 1fr;
+      }
+
+      .workshop-media {
+        grid-template-columns: 1fr;
+      }
+
+      .workshop-media figure,
+      .workshop-media figure:first-child,
+      .workshop-media figure:not(:first-child) {
+        min-height: 230px;
       }
 
       .hero-proof div,
@@ -1962,7 +2007,18 @@
     <section class="section" id="sobre">
       <div class="container workshop">
         <div class="workshop-media reveal">
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Oficina automotiva organizada com carro em atendimento" loading="lazy" />
+          <figure>
+            <img src="assets/loja-fachada.png" alt="Fachada da Monte Serrat Autopeças em Itupeva" loading="lazy" />
+            <figcaption>Fachada da loja</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/loja-entrada.png" alt="Entrada da Monte Serrat Autopeças com produtos expostos" loading="lazy" />
+            <figcaption>Entrada e balcão</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/loja-placa.png" alt="Placa da Monte Serrat Autopeças e baterias Pioneiro" loading="lazy" />
+            <figcaption>Monte Serrat</figcaption>
+          </figure>
         </div>
 
         <div class="reveal">
