@@ -494,7 +494,7 @@
     .hero-proof {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin-top: var(--space-6);
     }
 
@@ -502,21 +502,43 @@
       position: relative;
       min-width: 0;
       overflow: hidden;
-      border: 1px solid rgba(8, 8, 8, .14);
-      border-radius: 16px;
-      background: #080808;
+      isolation: isolate;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(8, 8, 8, .78), rgba(8, 8, 8, .52)),
+        rgba(255, 255, 255, .08);
       color: #fff;
-      padding: 18px 18px 18px 72px;
-      box-shadow: 0 18px 42px rgba(36, 31, 20, .18);
+      padding: 20px 20px 20px 78px;
+      box-shadow: 0 20px 50px rgba(8, 8, 8, .2), inset 0 1px 0 rgba(255, 255, 255, .12);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-proof div::after {
+      content: "";
+      position: absolute;
+      inset: -60% auto -60% -70%;
+      z-index: -1;
+      width: 58%;
+      transform: rotate(18deg);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+      animation: proofLight 7.8s ease-in-out infinite;
+      animation-delay: var(--light-delay, 0s);
+    }
+
+    @keyframes proofLight {
+      0%, 54% { left: -75%; opacity: 0; }
+      64% { opacity: .9; }
+      100% { left: 118%; opacity: 0; }
     }
 
     .hero-proof div::before {
       position: absolute;
-      left: 18px;
-      top: 18px;
+      left: 20px;
+      top: 20px;
       display: grid;
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       place-items: center;
       border-radius: 12px;
       background: var(--color-yellow);
@@ -524,7 +546,7 @@
       font-family: "Font Awesome 6 Free";
       font-size: 1rem;
       font-weight: 900;
-      box-shadow: 0 12px 24px rgba(255, 212, 0, .28);
+      box-shadow: 0 16px 34px rgba(255, 212, 0, .26);
     }
 
     .hero-proof div:nth-child(1)::before {
@@ -539,19 +561,27 @@
       content: "\f017";
     }
 
+    .hero-proof div:nth-child(2) {
+      --light-delay: 1.2s;
+    }
+
+    .hero-proof div:nth-child(3) {
+      --light-delay: 2.4s;
+    }
+
     .hero-proof strong {
       display: block;
       color: #fff;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-size: clamp(1rem, 1.65vw, 1.16rem);
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.05;
     }
 
     .hero-proof span {
       display: block;
-      margin-top: 7px;
-      color: rgba(255, 255, 255, .7);
-      font-size: .68rem;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, .74);
+      font-size: .66rem;
       font-weight: 800;
       line-height: 1.35;
       text-transform: uppercase;
@@ -887,6 +917,7 @@
     }
 
     .cta-strip {
+      border-block: 5px solid #080808;
       background: var(--color-yellow);
       color: #080808;
     }
@@ -1677,16 +1708,16 @@
 
           <div class="hero-proof" aria-label="Diferenciais da Monte Serrat Autopeças">
             <div>
-              <strong>Teste técnico</strong>
-              <span>Bateria e sistema elétrico</span>
+              <strong>Teste na hora</strong>
+              <span>Bateria e carga do sistema</span>
             </div>
             <div>
-              <strong>Garantia</strong>
-              <span>Suporte conforme o produto</span>
+              <strong>Compra segura</strong>
+              <span>Peça indicada para seu carro</span>
             </div>
             <div>
-              <strong>Domingo</strong>
-              <span>Atendimento em horário reduzido</span>
+              <strong>Domingo aberto</strong>
+              <span>Atendimento até 12h</span>
             </div>
           </div>
         </div>
