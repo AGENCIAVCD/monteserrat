@@ -872,72 +872,146 @@
     .workshop-media {
       position: relative;
       overflow: hidden;
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, .34);
+      border: 1px solid rgba(8, 8, 8, .12);
+      border-radius: var(--media-radius);
+      background: #080808;
       box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 10px;
-      padding: 10px;
     }
 
     .workshop-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: var(--radius);
     }
 
-    .workshop-media figure {
+    .gallery-slide {
       position: relative;
-      min-height: clamp(360px, 44vw, 560px);
+      display: none;
+      min-height: clamp(390px, 46vw, 600px);
       margin: 0;
-      overflow: hidden;
-      border-radius: var(--radius);
-      background: #fff;
     }
 
-    .workshop-media figure:first-child {
-      grid-row: span 2;
+    .gallery-slide.is-active {
+      display: block;
+      animation: galleryFade .35s ease;
     }
 
-    .workshop-media figure:not(:first-child) {
-      min-height: 0;
+    @keyframes galleryFade {
+      from { opacity: .55; transform: scale(1.01); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    .workshop-media figcaption {
+    .gallery-slide figcaption {
       position: absolute;
-      left: 14px;
-      bottom: 14px;
+      left: 18px;
+      bottom: 18px;
       border-radius: 999px;
       background: rgba(8, 8, 8, .82);
       color: #fff;
-      padding: 8px 12px;
-      font-size: .68rem;
+      padding: 10px 14px;
+      font-size: .72rem;
       font-weight: 900;
       text-transform: uppercase;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .gallery-button {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .26);
+      border-radius: 999px;
+      background: rgba(8, 8, 8, .78);
+      color: #fff;
+      cursor: pointer;
+      transition: transform .2s ease, background-color .2s ease;
+    }
+
+    .gallery-button:hover {
+      transform: translateY(-2px);
+      background: #080808;
+    }
+
+    .gallery-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 30px;
+      z-index: 2;
+      display: flex;
+      gap: 8px;
+      transform: translateX(-50%);
+    }
+
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .5);
+      transition: width .2s ease, background-color .2s ease;
+    }
+
+    .gallery-dot.is-active {
+      width: 24px;
+      background: var(--color-yellow);
     }
 
     .stat-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
+      gap: 14px;
       margin-top: var(--space-8);
-      overflow: hidden;
-      border: 1px solid rgba(8, 8, 8, .12);
-      border-radius: var(--radius);
-      background: rgba(8, 8, 8, .12);
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
     }
 
     .stat-row div {
-      background: var(--color-surface);
-      padding: var(--space-5);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(8, 8, 8, .14);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .56));
+      padding: 24px 24px 24px 82px;
+      box-shadow: 0 20px 50px rgba(36, 31, 20, .1);
+    }
+
+    .stat-row div::before {
+      position: absolute;
+      left: 22px;
+      top: 24px;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 14px;
+      background: #080808;
+      color: var(--color-yellow);
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+    }
+
+    .stat-row div:nth-child(1)::before {
+      content: "\f002";
+    }
+
+    .stat-row div:nth-child(2)::before {
+      content: "\f00c";
     }
 
     .stat-row strong {
       display: block;
-      color: var(--color-yellow-ink);
-      font-size: 1.35rem;
+      color: #080808;
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
       font-weight: 900;
     }
 
@@ -1423,14 +1497,27 @@
         grid-template-columns: 1fr;
       }
 
-      .workshop-media {
-        grid-template-columns: 1fr;
+      .gallery-slide {
+        min-height: 390px;
       }
 
-      .workshop-media figure,
-      .workshop-media figure:first-child,
-      .workshop-media figure:not(:first-child) {
-        min-height: 230px;
+      .gallery-slide figcaption {
+        right: 16px;
+        bottom: 76px;
+        left: 16px;
+        width: max-content;
+        max-width: calc(100% - 32px);
+      }
+
+      .gallery-controls {
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .gallery-dots {
+        bottom: 34px;
+        left: 18px;
+        transform: none;
       }
 
       .hero-proof div,
@@ -2006,19 +2093,32 @@
 
     <section class="section" id="sobre">
       <div class="container workshop">
-        <div class="workshop-media reveal">
-          <figure>
+        <div class="workshop-media reveal" data-gallery>
+          <figure class="gallery-slide is-active">
             <img src="assets/loja-fachada.png" alt="Fachada da Monte Serrat Autopeças em Itupeva" loading="lazy" />
             <figcaption>Fachada da loja</figcaption>
           </figure>
-          <figure>
+          <figure class="gallery-slide">
             <img src="assets/loja-entrada.png" alt="Entrada da Monte Serrat Autopeças com produtos expostos" loading="lazy" />
             <figcaption>Entrada e balcão</figcaption>
           </figure>
-          <figure>
+          <figure class="gallery-slide">
             <img src="assets/loja-placa.png" alt="Placa da Monte Serrat Autopeças e baterias Pioneiro" loading="lazy" />
             <figcaption>Monte Serrat</figcaption>
           </figure>
+          <div class="gallery-dots" aria-hidden="true">
+            <span class="gallery-dot is-active"></span>
+            <span class="gallery-dot"></span>
+            <span class="gallery-dot"></span>
+          </div>
+          <div class="gallery-controls" aria-label="Navegação da galeria">
+            <button class="gallery-button" type="button" data-gallery-prev aria-label="Foto anterior da loja">
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button class="gallery-button" type="button" data-gallery-next aria-label="Próxima foto da loja">
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
 
         <div class="reveal">
@@ -2206,6 +2306,32 @@
     privacyModal.addEventListener("click", event => {
       if (event.target === privacyModal) closePrivacyModal();
     });
+
+    const gallery = document.querySelector("[data-gallery]");
+    if (gallery) {
+      const slides = Array.from(gallery.querySelectorAll(".gallery-slide"));
+      const dots = Array.from(gallery.querySelectorAll(".gallery-dot"));
+      const prevButton = gallery.querySelector("[data-gallery-prev]");
+      const nextButton = gallery.querySelector("[data-gallery-next]");
+      let activeSlide = 0;
+
+      function showSlide(index) {
+        activeSlide = (index + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("is-active", slideIndex === activeSlide);
+        });
+        dots.forEach((dot, dotIndex) => {
+          dot.classList.toggle("is-active", dotIndex === activeSlide);
+        });
+      }
+
+      prevButton.addEventListener("click", () => showSlide(activeSlide - 1));
+      nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
+      gallery.addEventListener("keydown", event => {
+        if (event.key === "ArrowLeft") showSlide(activeSlide - 1);
+        if (event.key === "ArrowRight") showSlide(activeSlide + 1);
+      });
+    }
 
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
